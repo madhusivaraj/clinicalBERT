@@ -1,0 +1,5 @@
+RP80 = 0.20689655172413793
+eval_accuracy = 0.6304276852758733
+eval_loss = 0.6483550992485515
+global_step = 0
+training loss = 100000.0
