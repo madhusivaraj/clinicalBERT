@@ -55,3 +55,5 @@ Result metrics (AUPRC, AUROC, and RP-80) for each methodology (and its respectiv
 ![](./documents/early.png)
 ![](./documents/discharge.png)
 ![](./documents/accuracy.png)
+![](./documents/augmentation.png)
+
