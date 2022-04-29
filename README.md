@@ -34,7 +34,7 @@ Nov. 2020. URL: https://arxiv.org/abs/1904.05342
 The link to the original paper’s repository can be found at https://github.com/kexinhuang12345/clinicalBERT.
 
 #### Dependencies:
-[see requirements.txt]
+Run the following command: ```pip3 install -r requirements.txt```
 
 #### Data download instructions:
 Follow the instructions to download MIMIC-III at https://mimic.mit.edu/docs/gettingstarted/
