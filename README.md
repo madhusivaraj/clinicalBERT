@@ -1,5 +1,6 @@
 # Reproducing, Validating, and Enhancing ClinicalBERT 
-Madhu Sivaraj (sivaraj4) and Anish Saha (saha9)
+Madhu Sivaraj (sivaraj4@illinois.edu) and Anish Saha (saha9@illinois.edu)
+
 Group ID: 67, Paper ID: 314
 
 ## Abstract
@@ -90,6 +91,7 @@ Evaluation accuracy of our reproduced models
 | Bag-of-words | 0.611 | 0.605 |
 | BI-LSTM      | 0.616 | 0.606 | 
 | BERT         | 0.466 | 0.466 |
+
 
 ### Results obtained from our ablations
 30-day readmission using augmented data
