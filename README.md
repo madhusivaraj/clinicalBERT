@@ -44,7 +44,7 @@ python3 ./run_readmission.py --task_name readmission --readmission_mode discharg
 ```
 
 ### Link to the original paper’s repo: 
-The link to the original paper’s repository can be found at https://github.com/kexinhuang12345/clinicalBERT.
+The publicly available code repository provided by the original paper’s authors can be found at https://github.com/kexinhuang12345/clinicalBERT.
 
 ### Dependencies:
 Run the following command: ```pip3 install -r requirements.txt```
@@ -65,7 +65,44 @@ Result metrics (AUPRC, AUROC, and RP-80) for each methodology (and its respectiv
 [not applicable]
 
 ### Table of results:
-![](./documents/early.png)
-![](./documents/discharge.png)
-![](./documents/accuracy.png)
-![](./documents/augmentation.png)
+
+#### Results obtained from our reproduction of models
+30-day readmission using discharge summaries
+| Model        | AUROC | AUPRC | RP80 |
+|--------------|:-----:|:-----:|:-----:
+| ClinicalBERT | 0.748 | 0.723 | 0.276 |
+| Bag-of-words | 0.675 | 0.660 | 0.210 |
+| BI-LSTM      | 0.702 | 0.690 | 0.115 |
+| BERT         | 0.501 | 0.510 | 0.004 |
+
+30-day readmission using early clinical notes
+| Model        | AUROC | AUPRC | RP80 |
+|--------------|:-----:|:-----:|:-----:
+| ClinicalBERT | 0.823 | 0.810 | 0.597 |
+| Bag-of-words | 0.675 | 0.660 | 0.058 |
+| BI-LSTM      | 0.702 | 0.700 | 0.238 |
+| BERT         | 0.501 | 0.510 | 0.004 |
+
+Evaluation accuracy of our reproduced models
+| Model        | Discharge | Early Notes |
+|--------------|:-----:|:-----:|
+| ClinicalBERT | 0.647 | 0.740 |
+| Bag-of-words | 0.611 | 0.605 |
+| BI-LSTM      | 0.616 | 0.606 | 
+| BERT         | 0.466 | 0.466 |
+
+#### Results obtained from our ablations
+
+30-day readmission using augmented data
+| Clinical Notes | AUROC | AUPRC | RP80 |
+|--------------|:-----:|:-----:|:-----:
+| Discharge (aug.) | 0.795 | 0.760 | 0.276 |
+| Early (aug.)     | 0.823 | 0.810 | 0.597 |
+| Early (≤5 days)  | 0.796 | 0.800 | 0.521 |
+| Early (≤7 days)  | 0.763 | 0.780 | 0.536 |
+
+30-day readmission using ClinicalBERT model (with Transformers)
+| Clinical Notes | AUROC | AUPRC | RP80 |
+|--------------|:-----:|:-----:|:-----:
+| Discharge | 0.745 | 0.720 | 0.207 |
+| Early     | 0.758 | 0.740 | 0.380 |
