@@ -25,7 +25,7 @@ python3 ./run_readmission.py --task_name readmission --readmission_mode early --
 python3 ./run_readmission.py --task_name readmission --readmission_mode discharge --do_eval --data_dir ./data/aug_discharge/ --bert_model ./model/discharge_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_discharge # task: readmission prediction using augmented discharge summary clinical notes data
 ```
 
-### Citation to the original paper (Bibtex format): 
+## Citation to the original paper (Bibtex format): 
 ```
 @article{DBLP:journals/corr/abs-1904-05342,
   author    = {Kexin Huang and
