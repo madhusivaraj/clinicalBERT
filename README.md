@@ -51,10 +51,22 @@ The publicly available code repository provided by the original paper’s author
 Run the following command: ```pip3 install -r requirements.txt```
 
 ## Data download instructions:
-Follow the instructions to download MIMIC-III at https://mimic.mit.edu/docs/gettingstarted/
+ClinicalBERT relies on the Medical Information Mart for Intensive Care III (MIMIC-III) dataset. To download the dataset, follow the instructions at https://mimic.mit.edu/docs/gettingstarted/.
+
+1. Complete the required [CITI “Data or Specimens Only Research” course](https://www.citiprogram.org/index.cfm?pageID=154&icat=0&ac=0). Supplemental instructions found [here](https://eicu-crd.mit.edu/gettingstarted/access/).
+2. Become a credentialed user on [PhysioNet](https://physionet.org/).
+3. Navigate to the [MIMIC-III Clinical Database](https://physionet.org/content/mimiciii/1.4/) on PhysioNet.
+4. Sign the data use agreement (DUA). Adherence to the terms of the DUA is paramount.
+5. Download the data locally (6.2GB) or follow the tutorials for direct cloud access ([GCP BigQuery](https://mimic.physionet.org/tutorials/intro-to-mimic-iii-bq/); [AWS Athena](https://aws.amazon.com/blogs/big-data/perform-biomedical-informatics-without-a-database-using-mimic-iii-data-and-amazon-athena/)).
+
+
+Note: We opted to download the data locally. The size of the MIMIC-III dataset zip file was 6.2GB.
+
 
 ## Preprocessing code + command: 
-Run the necessary notebooks as outlined above.
+To preprocess clinical notes and merge them with admission data from MIMIC-III, run the following Jupyter notebook: ```./Preprocess.ipynb```.
+
+Ensure that MIMIC-III's directory ```./physionet/``` is in the same relative path as this file.
 
 ## Training code + command:
 Run the necessary commands as outlined above.
