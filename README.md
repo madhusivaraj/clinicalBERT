@@ -9,20 +9,10 @@ Clinical notes are often underutilized in the medical domain, given its high dim
 The goal of this project is to reproduce, validate, and enhance the results postulated by Huang et al. (2020) for ClinicalBERT, a model fine-tuned on a hospital readmission prediction task. We will attempt to improve performance via the ablations like augmenting the dataset and migrating from the pytorch-pretrained-BERT pipeline to Transformers, while also proving the claim that ClinicalBERT outperforms competitive baseline models (Bag-of-Words, Bi-LSTM, and BERT) using the following performance metrics: area under the receiver operating characteristic curve (AUROC), area under the precision-recall curve (AUPRC), and recall at precision of 80\% (RP80).
 
 ## Documentation
-To preprocess the data and generate all necessary datasets (original and augmented) used for this project, run the following notebooks: ```./Preprocess.ipynb``` and ```./ablations/Data_Augmentation.ipynb```, ensuring that MIMICIII's directory ```./physionet/``` is in the same relative path as this README. To reproduce baseline results, simply run the two notebooks in the ```./baselines/``` directory. For validating BERT results, use the model in the ```./model/pretraining/``` directory. Finally, to reproduce ClinicalBERT results for all of the different cases we experimented on, simply run the commands below:
+To preprocess the data and generate all necessary datasets (original and augmented) used for this project, run the following notebooks: ```./Preprocess.ipynb``` and ```./ablations/Data_Augmentation.ipynb```, ensuring that MIMICIII's directory ```./physionet/``` is in the same relative path as this README. To reproduce baseline results, simply run the two notebooks in the ```./baselines/``` directory. For validating BERT results, use the model in the ```./model/pretraining/``` directory. The command to train models must follow the format below:
 
 ```
-python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/3days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_early # task: readmission prediction using early (<3 days) clinical notes data
-
-python3 ./run_readmission.py --task_name readmission --readmission_mode discharge --do_eval --data_dir ./data/discharge/ --bert_model ./model/discharge_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_discharge # task: readmission prediction using discharge summary clinical notes data
-
-python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/5days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/ablation_early_5days/1/result_early # task: readmission prediction using early (<5 days) clinical notes data
-
-python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/5days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/ablation_early_7days/1/result_early # task: readmission prediction using early (<7 days) clinical notes data
-
-python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/aug_early/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_early # task: readmission prediction using augmented early (<3 days) clinical notes data
-
-python3 ./run_readmission.py --task_name readmission --readmission_mode discharge --do_eval --data_dir ./data/aug_discharge/ --bert_model ./model/discharge_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_discharge # task: readmission prediction using augmented discharge summary clinical notes data
+python3 ./run_readmission.py --task_name readmission --readmission_mode [READMISSION_MODE] --do_eval --data_dir [INPUT_DIRECTORY_NAME] --bert_model [MODEL_DIRECTORY_NAME] --max_seq_length 512 --output_dir [OUTPUT_DIRECTORY_NAME]
 ```
 
 ## Citation to the original paper (Bibtex format): 
@@ -68,14 +58,29 @@ To preprocess clinical notes and merge them with admission data from MIMIC-III, 
 
 Ensure that MIMIC-III's directory ```./physionet/``` is in the same relative path as this file.
 
-## Training code + command:
-Run the necessary commands as outlined above.
+## Training code + commands:
+Training code can be found in ```modeling_readmission.py``` and ```./run_readmission.py```.
+The training commands we used are as follows:
+
+```
+python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/3days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_early # task: readmission prediction using early (<3 days) clinical notes data
+
+python3 ./run_readmission.py --task_name readmission --readmission_mode discharge --do_eval --data_dir ./data/discharge/ --bert_model ./model/discharge_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_discharge # task: readmission prediction using discharge summary clinical notes data
+
+python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/5days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/ablation_early_5days/1/result_early # task: readmission prediction using early (<5 days) clinical notes data
+
+python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/5days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/ablation_early_7days/1/result_early # task: readmission prediction using early (<7 days) clinical notes data
+
+python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/aug_early/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_early # task: readmission prediction using augmented early (<3 days) clinical notes data
+
+python3 ./run_readmission.py --task_name readmission --readmission_mode discharge --do_eval --data_dir ./data/aug_discharge/ --bert_model ./model/discharge_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_discharge # task: readmission prediction using augmented discharge summary clinical notes data 
+```
 
 ## Evaluation code + command:
 Result metrics (AUPRC, AUROC, and RP-80) for each methodology (and its respective trials) can be seen in its corresponding subdirectory within the ```./results/``` directory.
 
 ## Pretrained model:
-[not applicable]
+The pretrained BERT model can be found in ```./model/pretraining/``` -- it was used as a baseline model to compare against.
 
 ## Table of results:
 
