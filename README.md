@@ -55,22 +55,12 @@ To preprocess the data and generate all necessary datasets (original and augment
 Ensure that MIMIC-III's directory ```./physionet/``` is in the same relative path as this file.
 
 ## Training and Evaluation code + commands:
-Training code can be found in ```modeling_readmission.py``` and ```./run_readmission.py```. @Mention what files are - 1 liner.
+Training code can be found in ```modeling_readmission.py``` and ```./run_readmission.py```. @Mention what files are - 1 liner. 
 
 The commands for training and evaluation we used are as follows:
 
 ### ClinicalBERT
-
-### BERT (Madhu will send)
-
-### Bag of Words
-
-### BI-LSTM
-
-### Ablation 1: Data Augmentation
-
-### Ablation 2: Transformers
-To reproduce our second set of ablations, simply run the following notebook: ```./ablations/ClinicalBERT_UpdatedTransformer.ipynb```.
+@ANISH - For the commands, leave the hyperparameters vague like (BATCH_SIZE) etc or ensure they match the vals on the paper.
 
 ```
 python3 ./run_readmission.py --task_name readmission --readmission_mode [READMISSION_MODE] --do_eval --data_dir [INPUT_DIRECTORY_NAME] --bert_model [MODEL_DIRECTORY_NAME] --max_seq_length 512 --output_dir [OUTPUT_DIRECTORY_NAME]
@@ -90,6 +80,25 @@ python3 ./run_readmission.py --task_name readmission --readmission_mode early --
 
 python3 ./run_readmission.py --task_name readmission --readmission_mode discharge --do_eval --data_dir ./data/aug_discharge/ --bert_model ./model/discharge_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_discharge # task: readmission prediction using augmented discharge summary clinical notes data 
 ```
+
+### BERT
+Readmission prediction using early (<3 days) clinical notes data
+```
+python3 ./run_readmission.py --task_name readmission --do_train --do_eval  --data_dir ./data/3days/ --bert_model ./model/baseline_bert_early --max_seq_length 512 --train_batch_size 128 --learning_rate 2e-5 --num_train_epochs 30 --output_dir [OUTPUT_DIR]
+```
+Readmission prediction using discharge summary clinical notes data
+```
+python3 ./run_readmission.py --task_name readmission --do_train --do_eval  --data_dir ./data/discharge/ --bert_model ./model/baseline_bert_discharge --max_seq_length 512 --train_batch_size 128 --learning_rate 2e-5 --num_train_epochs 30 --output_dir [OUTPUT_DIR]
+```
+
+### Bag of Words
+
+### BI-LSTM
+
+### Ablation 1: Data Augmentation
+
+### Ablation 2: Transformers
+To reproduce our second set of ablations, simply run the following notebook: ```./ablations/ClinicalBERT_UpdatedTransformer.ipynb```.
 
 Result metrics (AUPRC, AUROC, and RP-80) for each methodology (and its respective trials) can be seen in its corresponding subdirectory within the ```./results/``` directory.
 
