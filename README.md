@@ -4,7 +4,7 @@ Madhu Sivaraj (sivaraj4@illinois.edu) and Anish Saha (saha9@illinois.edu)
 Group ID: 67, Paper ID: 314
 
 ## Abstract
-Clinical notes are often underutilized in the medical domain, given its high dimensionality, scarcity, and lack of structure. Unlike its structured, quantitative counterparts such as lab results, procedural codes, and medication history, clinical notes - with the help of deep learning models - have the potential to reveal high-quality, physician-assessed semantic relationships between medical concepts, which would otherwise involve a human perspective. Huang et al. (2020) devised ClinicalBERT, a flexible framework for learning deep representations of clinical notes, which can be useful for domain-specific predictive tasks \cite{cbert}. Pre-trained on unstructured clinical text from MIMIC-III, ClinicalBERT leverages two unsupervised tasks, masked language modeling and next sentence prediction, followed by a problem-specific fine-tuning phase.
+Clinical notes are often underutilized in the medical domain, given its high dimensionality, scarcity, and lack of structure. Unlike its structured, quantitative counterparts such as lab results, procedural codes, and medication history, clinical notes - with the help of deep learning models - have the potential to reveal high-quality, physician-assessed semantic relationships between medical concepts, which would otherwise involve a human perspective. Huang et al. (2020) devised ClinicalBERT, a flexible framework for learning deep representations of clinical notes, which can be useful for domain-specific predictive tasks. Pre-trained on unstructured clinical text from MIMIC-III, ClinicalBERT leverages two unsupervised tasks, masked language modeling and next sentence prediction, followed by a problem-specific fine-tuning phase.
 
 The goal of this project is to reproduce, validate, and enhance the results postulated by Huang et al. (2020) for ClinicalBERT, a model fine-tuned on a hospital readmission prediction task. We will attempt to improve performance via the ablations like augmenting the dataset and migrating from the pytorch-pretrained-BERT pipeline to Transformers, while also proving the claim that ClinicalBERT outperforms competitive baseline models (Bag-of-Words, Bi-LSTM, and BERT) using the following performance metrics: area under the receiver operating characteristic curve (AUROC), area under the precision-recall curve (AUPRC), and recall at precision of 80\% (RP80).
 
@@ -93,7 +93,7 @@ Run all of the cells in the notebook called ```Bag_of_Words_Baseline.iynb``` (fo
 Run all of the cells in the notebook called ```BiLSTM_Baseline.iynb``` (found in the ```./baselines/``` directory) to run the Bi-LSTM baseline model and reproduce our reported results.
 
 ### Ablation 1: Data Augmentation
-To reproduce our first set of ablations, simply run the following notebook: ```./ablations/Data_Augmentation.ipynb```, then run our models using the same training as commands as earlier, replacing the ```data_dir``` and ```output_dir``` arguments as necessary. Use the commands below to reproduce our results:
+To reproduce our first set of ablations, run the following notebook: ```./ablations/Data_Augmentation.ipynb```, then run our models using the same training as commands as earlier, replacing the ```data_dir``` and ```output_dir``` arguments as necessary. Use the commands below to reproduce our results:
 
 ```
 python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/5days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/ablation_early_5days/1/result_early # task: readmission prediction using early (<5 days) clinical notes data
@@ -106,7 +106,7 @@ python3 ./run_readmission.py --task_name readmission --readmission_mode discharg
 ```
 
 ### Ablation 2: Transformers
-To reproduce our second set of ablations, simply run the following notebook: ```./ablations/ClinicalBERT_UpdatedTransformer.ipynb```.
+To reproduce our second set of ablations, run the following notebook: ```./ablations/ClinicalBERT_UpdatedTransformer.ipynb```.
 
 Result metrics (AUPRC, AUROC, and RP-80) for each methodology (and its respective trials) can be seen in its corresponding subdirectory within the ```./results/``` directory.
 
