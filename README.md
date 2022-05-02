@@ -50,35 +50,29 @@ Note: We opted to download the data locally. The size of the MIMIC-III dataset z
 
 
 ## Preprocessing code + command: 
-To preprocess the data and generate all necessary datasets (original and augmented) used for this project, run the following notebooks: ```./Preprocess.ipynb``` and ```./ablations/Data_Augmentation.ipynb```.
+To preprocess the data and generate all necessary datasets (original and augmented) used for this project, run the following notebooks: ```./Preprocess.ipynb``` and ```./ablations/Data_Augmentation.ipynb```. The preprocessing script generates all files in the ```./data/``` directory, which has been omitted from this repo for privacy and file size restrictions.
 
 Ensure that MIMIC-III's directory ```./physionet/``` is in the same relative path as this file.
 
 ## Training and Evaluation code + commands:
-Training code can be found in ```modeling_readmission.py``` and ```./run_readmission.py```. @Mention what files are - 1 liner. 
+Training code can be found in ```modeling_readmission.py``` and ```./run_readmission.py```. 
+The first file contains the configurations, layers, etc. for the models that make up the architecture of ClinicalBERT, while the latter is a utility script to gather data and configure the training procedure given the input parameters, then train the aforementioned models and evaluate their performance.
 
 The commands for training and evaluation we used are as follows:
 
 ### ClinicalBERT
-@ANISH - For the commands, leave the hyperparameters vague like (BATCH_SIZE) etc or ensure they match the vals on the paper.
-
 ```
 python3 ./run_readmission.py --task_name readmission --readmission_mode [READMISSION_MODE] --do_eval --data_dir [INPUT_DIRECTORY_NAME] --bert_model [MODEL_DIRECTORY_NAME] --max_seq_length 512 --output_dir [OUTPUT_DIRECTORY_NAME]
 ```
 
-
+#### Train ClinicalBERT Model for Readmission Task based on Early Notes
 ```
 python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/3days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_early # task: readmission prediction using early (<3 days) clinical notes data
+```
 
+#### Train ClinicalBERT Model for Readmission Task based on Discharge Summaries
+```
 python3 ./run_readmission.py --task_name readmission --readmission_mode discharge --do_eval --data_dir ./data/discharge/ --bert_model ./model/discharge_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_discharge # task: readmission prediction using discharge summary clinical notes data
-
-python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/5days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/ablation_early_5days/1/result_early # task: readmission prediction using early (<5 days) clinical notes data
-
-python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/5days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/ablation_early_7days/1/result_early # task: readmission prediction using early (<7 days) clinical notes data
-
-python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/aug_early/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_early # task: readmission prediction using augmented early (<3 days) clinical notes data
-
-python3 ./run_readmission.py --task_name readmission --readmission_mode discharge --do_eval --data_dir ./data/aug_discharge/ --bert_model ./model/discharge_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_discharge # task: readmission prediction using augmented discharge summary clinical notes data 
 ```
 
 ### BERT
@@ -91,11 +85,25 @@ Readmission prediction using discharge summary clinical notes data
 python3 ./run_readmission.py --task_name readmission --do_train --do_eval  --data_dir ./data/discharge/ --bert_model ./model/baseline_bert_discharge --max_seq_length 512 --train_batch_size 128 --learning_rate 2e-5 --num_train_epochs 30 --output_dir [OUTPUT_DIR]
 ```
 
-### Bag of Words
+### Bag-of-Words
+Run all of the cells in the notebook called ```Bag_of_Words_Baseline.iynb``` (found in the ```./baselines/``` directory) to run the Bag-of-Words baseline model and reproduce our reported results.
+
 
 ### BI-LSTM
+Run all of the cells in the notebook called ```BiLSTM_Baseline.iynb``` (found in the ```./baselines/``` directory) to run the Bi-LSTM baseline model and reproduce our reported results.
 
 ### Ablation 1: Data Augmentation
+To reproduce our first set of ablations, simply run the following notebook: ```./ablations/Data_Augmentation.ipynb```, then run our models using the same training as commands as earlier, replacing the ```data_dir``` and ```output_dir``` arguments as necessary. Use the commands below to reproduce our results:
+
+```
+python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/5days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/ablation_early_5days/1/result_early # task: readmission prediction using early (<5 days) clinical notes data
+
+python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/5days/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/ablation_early_7days/1/result_early # task: readmission prediction using early (<7 days) clinical notes data
+
+python3 ./run_readmission.py --task_name readmission --readmission_mode early --do_eval --data_dir ./data/aug_early/ --bert_model ./model/early_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_early # task: readmission prediction using augmented early (<3 days) clinical notes data
+
+python3 ./run_readmission.py --task_name readmission --readmission_mode discharge --do_eval --data_dir ./data/aug_discharge/ --bert_model ./model/discharge_readmission --max_seq_length 512 --output_dir ./results/clinicalbert/1/result_discharge # task: readmission prediction using augmented discharge summary clinical notes data 
+```
 
 ### Ablation 2: Transformers
 To reproduce our second set of ablations, simply run the following notebook: ```./ablations/ClinicalBERT_UpdatedTransformer.ipynb```.
